@@ -19,7 +19,7 @@
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",
     "no-console": "warn",
-    "comma-spacing": "warn",
+    "comma-spacing": "warn"
     // "@typescript-eslint/no-use-before-define": "off",
   }
 }
