@@ -1,0 +1,49 @@
+# Development docker-compose yml for masterbrew
+# Author: Alex Ligkas <alexligk@outlook.com>
+version: '3.7'
+services:
+  masterbrew:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
+    ports:
+      - 8080:8080
+      - 9229:9229
+    links:
+      - redis
+    depends_on:
+      - redis
+    volumes:
+      - .:/usr/src/app
+
+  redis:
+    image: redis:5.0.9-buster
+    ports:
+      - 6379:6379
+
+  redis-webui:
+    image: erikdubbelboer/phpredisadmin
+    environment:
+      - ADMIN_USER=masterbrew
+      - ADMIN_PASS=masterbrew
+      - REDIS_1_HOST=redis
+      - REDIS_1_PORT=6379
+    ports:
+      - 9987:80
+    depends_on:
+      - redis
+
+  postgres:
+    image: postgres:12
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      PG_DATA: /var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
