@@ -1,6 +1,9 @@
 {
     "cSpell.words": [
         "fastify",
-        "masterbrew"
+        "masterbrew",
+        "pgdata",
+        "postgres",
+        "postgresql"
     ]
 }
